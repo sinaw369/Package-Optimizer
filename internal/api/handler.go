@@ -16,6 +16,8 @@ import (
 type Handler struct {
 	// optimizer is the core optimization engine that calculates optimal package combinations
 	optimizer *domain.Optimizer
+	// packageSizes stores the available package sizes for the API
+	packageSizes []int
 }
 
 // NewHandler creates a new handler with the given optimizer.
@@ -23,12 +25,14 @@ type Handler struct {
 //
 // Args:
 //   - optimizer: the domain optimizer instance for package calculations
+//   - packageSizes: the available package sizes for the API
 //
 // Returns:
 //   - *Handler: configured handler instance
-func NewHandler(optimizer *domain.Optimizer) *Handler {
+func NewHandler(optimizer *domain.Optimizer, packageSizes []int) *Handler {
 	return &Handler{
-		optimizer: optimizer,
+		optimizer:    optimizer,
+		packageSizes: packageSizes,
 	}
 }
 
@@ -74,6 +78,24 @@ func (h *Handler) CalculateHandler(c echo.Context) error {
 
 	// Return the optimization result as JSON response
 	return c.JSON(http.StatusOK, result)
+}
+
+// PackageSizesHandler handles the /package-sizes endpoint.
+// This endpoint returns the available package sizes that can be used for optimization.
+//
+// Returns:
+//   - JSON response with available package sizes
+//   - HTTP 200 with package sizes array
+//
+// Example:
+//
+//	GET /api/package-sizes
+//	Response: {"package_sizes":[250,500,1000,2000]}
+func (h *Handler) PackageSizesHandler(c echo.Context) error {
+	// Return the available package sizes as JSON response
+	return c.JSON(http.StatusOK, map[string][]int{
+		"package_sizes": h.packageSizes,
+	})
 }
 
 // HealthHandler handles health check requests.

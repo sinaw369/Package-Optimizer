@@ -26,16 +26,18 @@ function setupEventListeners() {
 // Load package sizes from the server
 async function loadPackageSizes() {
     try {
-        const response = await fetch('/api/health');
+        // Fetch package sizes from the new API endpoint
+        const response = await fetch('/api/package-sizes');
         if (response.ok) {
-            // For now, we'll use default package sizes
-            // In a real implementation, you might have an endpoint to get package sizes
-            packageSizes = [250, 500, 1000, 2000];
+            const data = await response.json();
+            packageSizes = data.package_sizes || [];
             displayPackageSizes();
+        } else {
+            throw new Error('Failed to load package sizes');
         }
     } catch (error) {
         console.error('Failed to load package sizes:', error);
-        // Use default package sizes
+        // Fallback to default package sizes if API fails
         packageSizes = [250, 500, 1000, 2000];
         displayPackageSizes();
     }

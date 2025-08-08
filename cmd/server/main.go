@@ -30,9 +30,9 @@ func main() {
 	// The optimizer will be used by the API handlers to calculate optimal package combinations
 	optimizer := domain.NewOptimizer(cfg.PackageSizes)
 
-	// Create the HTTP handler with the optimizer
+	// Create the HTTP handler with the optimizer and package sizes
 	// The handler provides the API endpoints for package optimization
-	handler := api.NewHandler(optimizer)
+	handler := api.NewHandler(optimizer, cfg.PackageSizes)
 
 	// Create a new Echo instance for the HTTP server
 	// Echo is a high-performance web framework for Go
@@ -46,8 +46,9 @@ func main() {
 	// Configure API routes under the /api prefix
 	// These routes handle the core functionality of the package optimizer
 	apiGroup := e.Group("/api")
-	apiGroup.GET("/calculate", handler.CalculateHandler) // Main optimization endpoint
-	apiGroup.GET("/health", handler.HealthHandler)       // Health check endpoint
+	apiGroup.GET("/calculate", handler.CalculateHandler)     // Main optimization endpoint
+	apiGroup.GET("/package-sizes", handler.PackageSizesHandler) // Package sizes endpoint
+	apiGroup.GET("/health", handler.HealthHandler)           // Health check endpoint
 
 	// Configure web UI routes
 	// These routes serve the static files for the web interface
@@ -65,6 +66,7 @@ func main() {
 		log.Printf("Starting server on port %s", cfg.Port)
 		log.Printf("Available package sizes: %v", cfg.PackageSizes)
 		log.Printf("API endpoint: http://localhost:%s/api/calculate?qty=<quantity>", cfg.Port)
+		log.Printf("Package sizes endpoint: http://localhost:%s/api/package-sizes", cfg.Port)
 		log.Printf("Web UI: http://localhost:%s", cfg.Port)
 
 		// Start the HTTP server
