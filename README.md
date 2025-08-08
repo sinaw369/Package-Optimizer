@@ -188,4 +188,15 @@ The optimization algorithm uses a dynamic programming approach:
 
 ## License
 
-MIT License - see LICENSE file for details. 
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+### MIT License Summary
+
+- ✅ **Commercial Use**: Allowed
+- ✅ **Modification**: Allowed  
+- ✅ **Distribution**: Allowed
+- ✅ **Private Use**: Allowed
+- ❌ **Liability**: Limited
+- ❌ **Warranty**: Limited
+
+The MIT License is a permissive license that allows others to use, modify, and distribute your code with very few restrictions. 
