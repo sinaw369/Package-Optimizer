@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Package Optimizer</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📦 Package Optimizer</h1>
+            <p>Optimize package delivery by minimizing over-delivery</p>
+        </header>
+
+        <main>
+            <div class="input-section">
+                <div class="input-group">
+                    <label for="quantity">Requested Quantity:</label>
+                    <input type="number" id="quantity" placeholder="Enter quantity (e.g., 1201)" min="0">
+                    <button id="calculate-btn" onclick="calculate()">Calculate</button>
+                </div>
+                
+                <div class="package-sizes">
+                    <h3>Available Package Sizes:</h3>
+                    <div id="package-sizes-display" class="package-sizes-grid">
+                        <!-- Package sizes will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-section" id="result-section" style="display: none;">
+                <h2>Optimization Result</h2>
+                <div class="result-grid">
+                    <div class="result-card">
+                        <h3>Requested</h3>
+                        <div class="value" id="requested">-</div>
+                    </div>
+                    <div class="result-card">
+                        <h3>Total Delivered</h3>
+                        <div class="value" id="total-delivered">-</div>
+                    </div>
+                    <div class="result-card">
+                        <h3>Over Delivery</h3>
+                        <div class="value" id="over-delivery">-</div>
+                    </div>
+                </div>
+                
+                <div class="packages-section">
+                    <h3>Packages Used:</h3>
+                    <div id="packages-display" class="packages-grid">
+                        <!-- Package details will be shown here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="error-section" id="error-section" style="display: none;">
+                <div class="error-message" id="error-message">
+                    <!-- Error messages will be shown here -->
+                </div>
+            </div>
+
+            <div class="loading-section" id="loading-section" style="display: none;">
+                <div class="loading-spinner"></div>
+                <p>Calculating optimal package combination...</p>
+            </div>
+        </main>
+
+        <footer>
+            <p>API Endpoint: <code>/api/calculate?qty={quantity}</code></p>
+        </footer>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+</html> 
